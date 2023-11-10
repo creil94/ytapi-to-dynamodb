@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from datetime import datetime
+from datetime import datetime, date
 
 
 class VideoStatistics(BaseModel):
@@ -11,3 +11,8 @@ class VideoStatistics(BaseModel):
 
     entity_type: str = 'Statistic'
     identifier: str = f"STATS#{str(datetime.now())}"
+
+
+class VideoTimestamp(BaseModel):
+    video_id: str = Field(min_length=11, max_length=11)
+    end_date: date

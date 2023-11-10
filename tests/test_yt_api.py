@@ -1,6 +1,6 @@
 import pytest
 
-from functions.crawler.connectors.yt_api import crawl_video_statistics, VideoNotFoundException
+from functions.connectors.yt_api import crawl_video_statistics, VideoNotFoundException
 
 
 def test_crawl_video_statistics_good_video(requests_client):

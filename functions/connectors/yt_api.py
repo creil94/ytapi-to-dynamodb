@@ -1,6 +1,6 @@
 import os
 import requests
-from models.video_statistics import VideoStatistics
+from models.dynamodb import VideoStatistics
 
 
 BASE_URL = "https://www.googleapis.com/youtube/v3/"
