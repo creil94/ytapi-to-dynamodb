@@ -54,7 +54,7 @@ def crawl_video_statistics(video_id: str) -> VideoStatistics:
         video_id: video_id for which the statistics shall be crawled
 
     Returns:
-        statistics as dictionary
+        statistics as VideoStatistics instance
     """
     # prepare params for request
     params = {
@@ -64,4 +64,5 @@ def crawl_video_statistics(video_id: str) -> VideoStatistics:
 
     # iterate over the response from the api
     for item in request("videos", params):
+        item['statistics']['videoId'] = item['id']
         return VideoStatistics(**item['statistics'])

@@ -1,7 +1,13 @@
+import os
 import json
+import boto3
 
 from connectors.yt_api import crawl_video_statistics
+from connectors.dynamodb import store_statistics
 from models.video_event import VideoEvent
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table(os.environ['VIDEO_TABLE'])
 
 
 def lambda_handler(event, context):
@@ -12,4 +18,4 @@ def lambda_handler(event, context):
         video_event = VideoEvent(**json.loads(record['body']))
         statistics = crawl_video_statistics(video_event.video_id)
 
-        print(statistics)
+        store_statistics(table, statistics)
