@@ -1,13 +1,10 @@
 import os
 import requests
-from aws_lambda_powertools import Logger
 from models.video_statistics import VideoStatistics
 
 
 BASE_URL = "https://www.googleapis.com/youtube/v3/"
 API_KEY = os.environ['YT_API_KEY']
-
-logger = Logger(log_uncaught_exceptions=True)
 
 
 def request(api_path: str, params: dict) -> dict:
