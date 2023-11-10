@@ -7,8 +7,8 @@ BASE_URL = "https://www.googleapis.com/youtube/v3/"
 API_KEY = os.environ['YT_API_KEY']
 
 
-# define Python user-defined exceptions
 class VideoNotFoundException(Exception):
+    '''Exception when a video that is requested from the yt api does not exist'''
     def __init__(self, message='Video not found', error_code=404):
         super().__init__(message)
         self.error_code = error_code
