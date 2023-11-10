@@ -7,6 +7,13 @@ BASE_URL = "https://www.googleapis.com/youtube/v3/"
 API_KEY = os.environ['YT_API_KEY']
 
 
+# define Python user-defined exceptions
+class VideoNotFoundException(Exception):
+    def __init__(self, message='Video not found', error_code=404):
+        super().__init__(message)
+        self.error_code = error_code
+
+
 def request(api_path: str, params: dict) -> dict:
     """
     function that takes care of requesting the yt api including pagination
@@ -21,7 +28,15 @@ def request(api_path: str, params: dict) -> dict:
     # make initial request and yield the items
     response = requests.get(url, params=params)
     response.raise_for_status()
-    for item in response.json()['items']:
+
+    # retrieve items and check if stats came back
+    items = response.json()['items']
+
+    if len(items) == 0:
+        raise VideoNotFoundException()
+
+    # iterate over stats and yield all items
+    for item in items:
         yield item
 
     # if there are multiple pages -> iterate over them and yield items

@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch
 
-from functions.crawler.connectors.yt_api import crawl_video_statistics
+from functions.crawler.connectors.yt_api import crawl_video_statistics, VideoNotFoundException
 
 
 class MockResponse:
@@ -37,7 +37,10 @@ def requests_client():
             return MockResponse(response, 200)
         elif kwargs['params']['id'] == 'bad_video':
             # video that does not exist
-            return MockResponse([], 200)
+            response = {
+                'items': []
+            }
+            return MockResponse(response, 200)
 
     with patch('requests.get', new=mock_api_call):
         yield None
@@ -55,5 +58,5 @@ def test_crawl_video_statistics_good_video(requests_client):
 
 def test_crawl_video_statistics_bad_video(requests_client):
     # test a non existend video
-    with pytest.raises(TypeError):
+    with pytest.raises(VideoNotFoundException):
         crawl_video_statistics('bad_video')
