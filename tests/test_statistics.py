@@ -1,8 +1,6 @@
 import json
-import pytest
 
 from functions.crawler.statistics import lambda_handler
-from functions.crawler.connectors.yt_api import VideoNotFoundException
 
 
 def test_statistics_inserting_stats_one_video(video_table_mock, requests_client):
