@@ -1,5 +1,5 @@
 
-# Youtube-API-DynamoDB
+# YoutubeAPI-to-DynamoDB
 [![Test&Deploy](https://github.com/creil94/ytapi-dynamodb/actions/workflows/deployment.yml/badge.svg?branch=main)](https://github.com/creil94/ytapi-dynamodb/actions/workflows/deployment.yml)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 
