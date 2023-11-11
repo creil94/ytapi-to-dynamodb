@@ -2,7 +2,7 @@ module "comments-crawler-queue-provisioner" {
   source                = "./lambdas/producer-lambda"
   container_entry_point = "producer/statistics.lambda_handler"
   image_uri = "${aws_ecr_repository.lambda-functions-ecr.repository_url}@${docker_registry_image.lambda-image-remote.sha256_digest}"
-  name                  = "product-crawler"
+  name                  = "video-crawler"
   queue = {
     arn : aws_sqs_queue.video-statistics-queue.arn
     url : aws_sqs_queue.video-statistics-queue.url
