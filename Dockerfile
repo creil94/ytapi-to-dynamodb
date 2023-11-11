@@ -11,7 +11,7 @@ ENV POETRY_NO_INTERACTION=1 \
 # prepend poetry and venv to path
 ENV PYTHONPATH=${PYTHONPATH}:${PWD}
 
-RUN pip install poetry==1.6.1
+RUN pip3 install poetry==1.6.1
 
 # copy project requirement files
 # and install dependencies
