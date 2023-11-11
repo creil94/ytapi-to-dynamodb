@@ -3,6 +3,7 @@ resource "docker_image" "lambda_image" {
   build {
     context = "../."
   }
+  platform = "linux/arm64"
 
   triggers = {
     dir_sha1 = sha1(join("", [for f in fileset(path.module, "../functions/**") : filesha1(f)]))
