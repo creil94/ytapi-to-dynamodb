@@ -6,7 +6,7 @@ env:
   AWS_DEFAULT_REGION: eu-central-1
 
 jobs:
-  PyTest:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,3 +31,27 @@ jobs:
           source .venv/bin/activate
           export PYTHONPATH=$(pwd)/functions
           pytest -c tests/pytest.ini
+  DeployInfrastructure:
+    needs: [ test ]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
+          terraform_version: 1.2.2
+      - name: Terraform Init, Plan & Apply
+        id: terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: eu-central-1
+        run: |
+          terraform init
+          terraform plan -no-color
+          terraform apply -auto-approve
