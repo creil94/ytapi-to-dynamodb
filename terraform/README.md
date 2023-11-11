@@ -16,4 +16,4 @@ terraform {
 
 4. Run `terraform plan`
 5. Run `terraform apply`
-   6. You will be prompted for your YT_API_KEY. Either always fill it in or store the key in the env variable `TF_VAR_YT_APi_KEY`.
+* You will be prompted for your YT_API_KEY. Either always fill it in or store the key in the env variable `TF_VAR_YT_APi_KEY`.
