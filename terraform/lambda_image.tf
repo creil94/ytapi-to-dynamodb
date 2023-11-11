@@ -3,6 +3,7 @@ resource "docker_image" "lambda_image" {
   build {
     context = "../."
   }
+
   triggers = {
     dir_sha1 = sha1(join("", [for f in fileset(path.module, "../functions/**") : filesha1(f)]))
   }
@@ -11,6 +12,7 @@ resource "docker_image" "lambda_image" {
 resource "docker_registry_image" "lambda-image-remote" {
   name          = docker_image.lambda_image.name
   keep_remotely = true
+
   triggers = {
     dir_sha1 = sha1(join("", [for f in fileset(path.module, "../functions/**") : filesha1(f)]))
   }

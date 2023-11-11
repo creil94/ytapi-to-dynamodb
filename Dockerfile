@@ -19,3 +19,5 @@ COPY poetry.lock pyproject.toml ./
 RUN poetry install
 
 COPY functions .
+
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
