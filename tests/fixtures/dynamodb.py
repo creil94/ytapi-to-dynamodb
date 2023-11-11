@@ -1,3 +1,4 @@
+import os
 import pytest
 import boto3
 from moto import mock_dynamodb
@@ -9,7 +10,7 @@ def video_table_mock():
     with mock_dynamodb():
         client = boto3.client("dynamodb")
         client.create_table(
-            TableName='Videos',
+            TableName=os.environ['VIDEO_TABLE'],
             AttributeDefinitions=[
                 {
                     'AttributeName': 'video_id',
@@ -17,6 +18,10 @@ def video_table_mock():
                 },
                 {
                     'AttributeName': 'identifier',
+                    'AttributeType': 'S'
+                },
+                {
+                    'AttributeName': 'entity_type',
                     'AttributeType': 'S'
                 }
             ],
@@ -29,6 +34,28 @@ def video_table_mock():
                     'AttributeName': 'identifier',
                     'KeyType': 'RANGE'
                 }
+            ],
+            GlobalSecondaryIndexes=[
+                {
+                    'IndexName': 'entity-type-identifier',
+                    'KeySchema': [
+                        {
+                            'AttributeName': 'entity_type',
+                            'KeyType': 'HASH'
+                        },
+                        {
+                            'AttributeName': 'identifier',
+                            'KeyType': 'RANGE'
+                        },
+                    ],
+                    'Projection': {
+                        'ProjectionType': 'ALL'
+                    },
+                    'ProvisionedThroughput': {
+                        'ReadCapacityUnits': 5,
+                        'WriteCapacityUnits': 5
+                    }
+                },
             ],
             ProvisionedThroughput={
                 'ReadCapacityUnits': 5,
