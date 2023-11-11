@@ -7,7 +7,7 @@ def test_statistics_inserting_stats_one_video(video_table_mock, requests_client)
     '''tests the results of what happens when statistics for one video are retrieved
     expected result: table has one record with exactly the details of the video'''
     video_id = 'good_video_'
-    lambda_handler({'Records': [{'body': json.dumps({'VideoId': video_id})}]}, None)
+    lambda_handler({'Records': [{'body': json.dumps({'video_id': video_id})}]}, None)
 
     # check if video stats are in table
     results = video_table_mock.scan(TableName='Videos')
@@ -22,13 +22,13 @@ def test_statistics_inserting_stats_multiple_videos(video_table_mock, requests_c
     expected result: table has multiple record with exactly the details of the videos'''
     records = [
         {
-            'body': json.dumps({'VideoId': 'good_video1'})
+            'body': json.dumps({'video_id': 'good_video1'})
         },
         {
-            'body': json.dumps({'VideoId': 'good_video2'})
+            'body': json.dumps({'video_id': 'good_video2'})
         },
         {
-            'body': json.dumps({'VideoId': 'good_video3'})
+            'body': json.dumps({'video_id': 'good_video3'})
         },
     ]
 
@@ -71,7 +71,7 @@ def test_statistics_inserting_stats_bad_video(video_table_mock, requests_client)
     video_id = 'bad_video__'
 
     try:
-        lambda_handler({'Records': [{'body': json.dumps({'VideoId': video_id})}]}, None)
+        lambda_handler({'Records': [{'body': json.dumps({'video_id': video_id})}]}, None)
     except:
         pass
 
