@@ -18,4 +18,5 @@ The core idea of this architecture is to create a scalable solution to retrieve 
 - Infrastructure as Code with terraform
 - automated testing and deployment with github actions
 - high test coverage
+- dependabot integration to receive notification for package updates and automatically open PRs
 
