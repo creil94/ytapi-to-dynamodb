@@ -18,4 +18,3 @@ def lambda_handler(event, context):
     # add them to the queue
     for video in video_list:
         send_message(sqs_client, QUEUE_URL, video.model_dump(exclude={'end_date'}))
-
