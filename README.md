@@ -5,8 +5,8 @@
 
 Small example implementation which regularly retrieves data from the youtube-api and stores them in AWS DynamoDB through a combination of AWS-SQS and AWS-Lambda.
 
-## Demo
-TODO
+## Architecture
+![architecture diagram](assets/architecture_diagram.jpg)
 
 ## Features
 - highly scalable pipeline to extract information from yt-api
