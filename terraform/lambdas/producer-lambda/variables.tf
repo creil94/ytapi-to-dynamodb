@@ -34,3 +34,7 @@ variable "schedule_expression" {
   description = "expression how often the provisioner is triggered"
   type = string
 }
+
+variable "environment_vars" {
+  type = map(string)
+}

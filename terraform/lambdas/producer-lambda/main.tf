@@ -46,15 +46,13 @@ resource "aws_lambda_function" "queue-provisioner-lambda" {
   timeout       = 30
   memory_size   = 128
   image_uri     = var.image_uri
+  architectures = ["arm64"]
   image_config {
     command = [var.container_entry_point]
   }
   package_type = "Image"
   environment {
-    variables = {
-      TABLE = var.table.name
-      QUEUE_URL        = var.queue.url
-    }
+    variables = var.environment_vars
   }
   tracing_config {
     mode = "Active"
