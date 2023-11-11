@@ -7,7 +7,7 @@ module "comments-crawler-queue-provisioner" {
     arn : aws_sqs_queue.video-statistics-queue.arn
     url : aws_sqs_queue.video-statistics-queue.url
   }
-  schedule_expression = "cron(0 8,20 * * ? *)"
+  schedule_expression = "cron(*/10 * * * ? *)"
   table = {
     arn : aws_dynamodb_table.videos-dynamodb-table.arn
     name : aws_dynamodb_table.videos-dynamodb-table.name
