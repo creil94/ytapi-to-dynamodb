@@ -8,7 +8,7 @@ This folder mainly contains helper functionalities to wrap connections to third 
 ├── connectors
 │   ├── dynamodb.py
 │   ├── sqs.py
-│   ├── yp_api.py
+│   ├── yt_api.py
 ```
 ### crawler
 This folder contains the code for the crawler function
