@@ -67,7 +67,7 @@ resource "aws_lambda_function" "crawler-lambda" {
   timeout       = 30
   memory_size   = 128
   image_uri     = var.image_uri
-  architectures = ["arm64"]
+  architectures = ["x86_64"]
   image_config {
     command = [var.container_entry_point]
   }

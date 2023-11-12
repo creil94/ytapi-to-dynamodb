@@ -2,7 +2,7 @@ resource "docker_image" "lambda_image" {
   name = "${aws_ecr_repository.lambda-functions-ecr.repository_url}:latest"
   build {
     context = "../."
-    platform = "linux/arm64"
+    platform = "linux/amd64"
   }
 
   triggers = {
