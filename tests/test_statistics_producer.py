@@ -88,9 +88,9 @@ def multi_records_mixed(video_table_mock):
     insert_record_helper(video_table_mock, items)
 
 
-def test_producer_e2e_single_video(video_table_mock, video_sqs_mock, single_record):
+def test_producer_e2e_single_video(video_table_mock, video_sqs_mock, single_record, lambda_context):
     '''Tests if a single video makes it to the queue'''
-    lambda_handler(None, None)
+    lambda_handler(None, lambda_context)
 
     # check if message arrived on the queue
     message = video_sqs_mock.receive_message(QueueUrl=os.environ['QUEUE_URL'])
@@ -104,9 +104,9 @@ def test_producer_e2e_single_video(video_table_mock, video_sqs_mock, single_reco
     assert 'Messages' not in message
 
 
-def test_producer_e2e_multiple_videos(video_table_mock, video_sqs_mock, multi_records):
+def test_producer_e2e_multiple_videos(video_table_mock, video_sqs_mock, multi_records, lambda_context):
     '''Tests if multiple videos makes it to the queue'''
-    lambda_handler(None, None)
+    lambda_handler(None, lambda_context)
 
     # check if first message arrived on the queue
     message = video_sqs_mock.receive_message(QueueUrl=os.environ['QUEUE_URL'])
@@ -127,9 +127,9 @@ def test_producer_e2e_multiple_videos(video_table_mock, video_sqs_mock, multi_re
     assert 'Messages' not in message
 
 
-def test_producer_e2e_no_videos(video_table_mock, video_sqs_mock):
+def test_producer_e2e_no_videos(video_table_mock, video_sqs_mock, lambda_context):
     '''tests what happens if no video were in the table. Expected behaviour is that the queue is empty'''
-    lambda_handler(None, None)
+    lambda_handler(None, lambda_context)
 
     # check if first message arrived on the queue
     message = video_sqs_mock.receive_message(QueueUrl=os.environ['QUEUE_URL'])
@@ -137,9 +137,9 @@ def test_producer_e2e_no_videos(video_table_mock, video_sqs_mock):
     assert 'Messages' not in message
 
 
-def test_producer_e2e_outdated_videos(video_table_mock, video_sqs_mock, single_record_outdated):
+def test_producer_e2e_outdated_videos(video_table_mock, video_sqs_mock, single_record_outdated, lambda_context):
     '''tests what happens if only and outdated video is in the table. Expected behaviour is that the queue is empty'''
-    lambda_handler(None, None)
+    lambda_handler(None, lambda_context)
 
     # check if first message arrived on the queue
     message = video_sqs_mock.receive_message(QueueUrl=os.environ['QUEUE_URL'])
@@ -147,10 +147,10 @@ def test_producer_e2e_outdated_videos(video_table_mock, video_sqs_mock, single_r
     assert 'Messages' not in message
 
 
-def test_producer_e2e_single_and_outdated_videos(video_table_mock, video_sqs_mock, multi_records_mixed):
+def test_producer_e2e_single_and_outdated_videos(video_table_mock, video_sqs_mock, multi_records_mixed, lambda_context):
     '''tests what happens if a non outdated and an outdated video are in the table.
     Expected behaviour is that only the non outdated made it to the queue'''
-    lambda_handler(None, None)
+    lambda_handler(None, lambda_context)
 
     # check if message arrived on the queue
     message = video_sqs_mock.receive_message(QueueUrl=os.environ['QUEUE_URL'])

@@ -3,11 +3,11 @@ import json
 from functions.crawler.statistics import lambda_handler
 
 
-def test_statistics_inserting_stats_one_video(video_table_mock, requests_client):
+def test_statistics_inserting_stats_one_video(video_table_mock, requests_client, lambda_context):
     '''tests the results of what happens when statistics for one video are retrieved
     expected result: table has one record with exactly the details of the video'''
     video_id = 'good_video_'
-    lambda_handler({'Records': [{'body': json.dumps({'video_id': video_id})}]}, None)
+    lambda_handler({'Records': [{'body': json.dumps({'video_id': video_id})}]}, lambda_context)
 
     # check if video stats are in table
     results = video_table_mock.scan(TableName='Videos')
@@ -17,7 +17,7 @@ def test_statistics_inserting_stats_one_video(video_table_mock, requests_client)
     assert results['Items'][0]['video_id']['S'] == video_id
 
 
-def test_statistics_inserting_stats_multiple_videos(video_table_mock, requests_client):
+def test_statistics_inserting_stats_multiple_videos(video_table_mock, requests_client, lambda_context):
     '''tests the results of what happens when statistics for multiple videos are retrieved
     expected result: table has multiple record with exactly the details of the videos'''
     records = [
@@ -32,7 +32,7 @@ def test_statistics_inserting_stats_multiple_videos(video_table_mock, requests_c
         },
     ]
 
-    lambda_handler({'Records': records}, None)
+    lambda_handler({'Records': records}, lambda_context)
 
     # check if video stats are in table
     results = video_table_mock.scan(TableName='Videos')
@@ -65,13 +65,13 @@ def test_statistics_inserting_stats_multiple_videos(video_table_mock, requests_c
     assert results['Items'][2]['identifier']['S'].startswith('STATS#')
 
 
-def test_statistics_inserting_stats_bad_video(video_table_mock, requests_client):
+def test_statistics_inserting_stats_bad_video(video_table_mock, requests_client, lambda_context):
     '''tests the results of what happens when statistics for video are retrieved, that does not exist
     expected result: lambda throws exception and table remains empty'''
     video_id = 'bad_video__'
 
     try:
-        lambda_handler({'Records': [{'body': json.dumps({'video_id': video_id})}]}, None)
+        lambda_handler({'Records': [{'body': json.dumps({'video_id': video_id})}]}, lambda_context)
     except:
         pass
 
