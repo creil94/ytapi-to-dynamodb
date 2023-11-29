@@ -1,10 +1,13 @@
 import os
 import requests
+from aws_lambda_powertools import Tracer
+
 from models.dynamodb import VideoStatistics
 
 
 BASE_URL = "https://www.googleapis.com/youtube/v3/"
 API_KEY = os.environ['YT_API_KEY']
+tracer = Tracer()
 
 
 class VideoNotFoundException(Exception):
@@ -47,6 +50,7 @@ def request(api_path: str, params: dict) -> dict:
             yield item
 
 
+@tracer.capture_method
 def crawl_video_statistics(video_id: str) -> VideoStatistics:
     """
     function that crawls the latest statistics of the given video id
@@ -56,6 +60,8 @@ def crawl_video_statistics(video_id: str) -> VideoStatistics:
     Returns:
         statistics as VideoStatistics instance
     """
+    tracer.put_annotation(key="video_id", value=video_id)
+
     # prepare params for request
     params = {
         'part': 'statistics',
