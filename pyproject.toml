@@ -16,7 +16,7 @@ boto3 = "^1.34.29"
 [tool.poetry.group.docs.dependencies]
 pytest = "^8.0.0"
 moto = "^5.0.0"
-pytest-env = "^1.1.1"
+pytest-env = "^1.1.3"
 
 [build-system]
 requires = ["poetry-core"]
