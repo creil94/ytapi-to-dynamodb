@@ -1,13 +1,13 @@
 import os
 import pytest
 import boto3
-from moto import mock_dynamodb
+from moto import mock_aws
 
 
 @pytest.fixture
 def video_table_mock():
     '''Mock for the video table'''
-    with mock_dynamodb():
+    with mock_aws():
         client = boto3.client("dynamodb")
         client.create_table(
             TableName=os.environ['VIDEO_TABLE'],
