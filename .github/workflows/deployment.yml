@@ -1,6 +1,9 @@
 name: Test&Deploy
 
-on: push
+on: 
+  push:
+  pull_request:
+    types: [opened]
 
 env:
   AWS_DEFAULT_REGION: eu-central-1
@@ -33,6 +36,7 @@ jobs:
           pytest -c tests/pytest.ini
 
   deploy:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs: [ test ]
     runs-on: ubuntu-latest
     defaults:
