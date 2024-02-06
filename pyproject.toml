@@ -10,7 +10,7 @@ python = "^3.11"
 pydantic = "^2.6.0"
 aws-lambda-powertools = "^2.32.0"
 requests = "^2.31.0"
-boto3 = "^1.34.29"
+boto3 = "^1.34.36"
 
 
 [tool.poetry.group.docs.dependencies]
