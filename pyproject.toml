@@ -14,7 +14,7 @@ boto3 = "^1.34.36"
 
 
 [tool.poetry.group.docs.dependencies]
-pytest = "^8.0.0"
+pytest = "^8.0.2"
 moto = "^5.0.2"
 pytest-env = "^1.1.3"
 
