@@ -13,13 +13,13 @@ files = [
 
 [[package]]
 name = "aws-lambda-powertools"
-version = "2.32.0"
+version = "2.35.1"
 description = "Powertools for AWS Lambda (Python) is a developer toolkit to implement Serverless best practices and increase developer velocity."
 optional = false
-python-versions = ">=3.7.4,<4.0.0"
+python-versions = ">=3.8,<4.0.0"
 files = [
-    {file = "aws_lambda_powertools-2.32.0-py3-none-any.whl", hash = "sha256:26e04dee027854e47fe8f9764863731d2511193054eac4629d2e66e46eac76f5"},
-    {file = "aws_lambda_powertools-2.32.0.tar.gz", hash = "sha256:56422df30f633ad679abcc69b1b8a35212da18eecdc3fbaf5e6ca7fb8cc0e498"},
+    {file = "aws_lambda_powertools-2.35.1-py3-none-any.whl", hash = "sha256:70ff17435a973d9dffff9f99c513477de190c675ad8c0297f67951f0724adcda"},
+    {file = "aws_lambda_powertools-2.35.1.tar.gz", hash = "sha256:dc58bbe8a81c22f8cf525cac5c09fa3fcabfd1a4b2ec2abbfeb4c445e0912aa5"},
 ]
 
 [package.dependencies]
@@ -29,7 +29,7 @@ typing-extensions = ">=4.6.2,<5.0.0"
 all = ["aws-xray-sdk (>=2.8.0,<3.0.0)", "fastjsonschema (>=2.14.5,<3.0.0)", "pydantic (>=1.8.2,<2.0.0)"]
 aws-sdk = ["boto3 (>=1.26.164,<2.0.0)"]
 datadog = ["datadog-lambda (>=4.77,<6.0)"]
-datamasking-aws-sdk = ["aws-encryption-sdk (>=3.1.1,<4.0.0)"]
+datamasking = ["aws-encryption-sdk (>=3.1.1,<4.0.0)", "jsonpath-ng (>=1.6.0,<2.0.0)"]
 parser = ["pydantic (>=1.8.2,<2.0.0)"]
 redis = ["redis (>=4.4,<6.0)"]
 tracer = ["aws-xray-sdk (>=2.8.0,<3.0.0)"]
@@ -850,4 +850,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "b2372dd00b8c7bc3805a8b0974ed3dd23f5486633123eeb0fb7f6ee817bfeaa3"
+content-hash = "9fbcb9531de9e6dd819b4391e49ce11bb6a3afe24903e7b053073438a76dce75"
